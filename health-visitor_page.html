@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Visitor Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f0f8ff; /* Light Sky Blue */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #4CAF50; /* Green */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Welcome, Health Visitor</h2>
+
+        <h3>Patient Health Management</h3>
+        <a href="#" class="button" onclick="openModal('viewPatientsModal')">View Patient Records</a>
+        <a href="#" class="button" onclick="openModal('updatePatientModal')">Update Patient Information</a>
+        <a href="#" class="button" onclick="openModal('addPatientModal')">Add New Patient</a>
+
+        <h3>Health Assessments</h3>
+        <a href="#" class="button" onclick="openModal('recordAssessmentModal')">Record Health Assessment</a>
+        <a href="#" class="button" onclick="openModal('viewAssessmentsModal')">View Assessment History</a>
+
+        <h3>Appointment Management</h3>
+        <a href="#" class="button" onclick="openModal('manageAppointmentsModal')">Manage Appointments</a>
+        <a href="#" class="button" onclick="openModal('upcomingAppointmentsModal')">Upcoming Appointments</a>
+
+        <h3>Reporting Features</h3>
+        <a href="#" class="button" onclick="openModal('generateReportsModal')">Generate Reports</a>
+        <a href="#" class="button" onclick="openModal('viewReportsModal')">View Reports</a>
+    </div>
+
+    <a href="Mental_healthcare.html" class="back-home">Logout</a>
+
+    <!-- Modal Forms -->
+    <div id="viewPatientsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewPatientsModal')">&times;</span>
+            <h2>View Patient Records</h2>
+            <form>
+                <label for="patientId">Enter Patient ID:</label>
+                <input type="text" id="patientId" name="patientId" required>
+                <button type="submit">View Records</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="updatePatientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('updatePatientModal')">&times;</span>
+            <h2>Update Patient Information</h2>
+            <form>
+                <label for="updatePatientId">Enter Patient ID:</label>
+                <input type="text" id="updatePatientId" name="updatePatientId" required>
+                <label for="updateInfo">Update Information:</label>
+                <textarea id="updateInfo" name="updateInfo" rows="4" required></textarea>
+                <button type="submit">Update Information</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addPatientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addPatientModal')">&times;</span>
+            <h2>Add New Patient</h2>
+            <form>
+                <label for="newPatientName">Patient Name:</label>
+                <input type="text" id="newPatientName" name="newPatientName" required>
+                <label for="newPatientAge">Patient Age:</label>
+                <input type="number" id="newPatientAge" name="newPatientAge" required>
+                <button type="submit">Add Patient</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="recordAssessmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('recordAssessmentModal')">&times;</span>
+            <h2>Record Health Assessment</h2>
+            <form>
+                <label for="assessmentPatientId">Enter Patient ID:</label>
+                <input type="text" id="assessmentPatientId" name="assessmentPatientId" required>
+                <label for="assessmentNotes">Assessment Notes:</label>
+                <textarea id="assessmentNotes" name="assessmentNotes" rows="4" required></textarea>
+                <button type="submit">Save Assessment</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="viewAssessmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewAssessmentsModal')">&times;</span>
+            <h2>View Assessment History</h2>
+            <form>
+                <label for="historyPatientId">Enter Patient ID:</label>
+                <input type="text" id="historyPatientId" name="historyPatientId" required>
+                <button type="submit">View History</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="manageAppointmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('manageAppointmentsModal')">&times;</span>
+            <h2>Manage Appointments</h2>
+            <form>
+                <label for="appointmentId">Appointment ID:</label>
+                <input type="text" id="appointmentId" name="appointmentId" required>
+                <button type="submit">Manage Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="upcomingAppointmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('upcomingAppointmentsModal')">&times;</span>
+            <h2>Upcoming Appointments</h2>
+            <form>
+                <button type="submit">View Upcoming Appointments</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="generateReportsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('generateReportsModal')">&times;</span>
+            <h2>Generate Reports</h2>
+            <form>
+                <label for="reportType">Select Report Type:</label>
+                <select id="reportType" name="reportType" required>
+                    <option value="patient">Patient Report</option>
+                    <option value="assessment">Assessment Report</option>
+                    <option value="appointment">Appointment Report</option>
+                </select>
+                <button type="submit">Generate Report</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="viewReportsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewReportsModal')">&times;</span>
+            <h2>View Reports</h2>
+            <form>
+                <button type="submit">View Reports</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="th.jpeg" type="image/x-icon">
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.4s; /* Animation for modal */
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Welcome to Mentcare System</h1>
+            <p>Connecting Healthcare Professionals for Efficient and Compassionate Care</p>
+        </div>
+    </header>
+
+    <div id="menu-btn" class="menu-btn">☰</div>
+    <nav id="side-menu">
+        <a href="#" onclick="openModal('settingsModal')">Settings</a>
+        <a href="#" onclick="openModal('aboutModal')">About Us</a>
+        <a href="#" onclick="openModal('resourcesModal')">Resources</a>
+    </nav>
+
+    <main>
+        <div class="card-container">
+            <div class="card medical-card">
+                <h2>Medical Users</h2>
+                <a href="doctor.html" class="card-link">Login as Doctor</a>
+                <a href="nurse.html" class="card-link">Login as Nurse</a>
+                <a href="health-visitor.html" class="card-link">Login as Health Visitor</a>
+            </div>
+
+            <div class="card non-medical-card">
+                <h2>Non-Medical Users</h2>
+                <a href="receptionist.html" class="card-link">Login as Receptionist</a>
+                <a href="medical-records.html" class="card-link">Login as Medical Records Staff</a>
+                <a href="admin.html" class="card-link">Login as Administrator</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Contact Information: [+266 69400523]</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <!-- Modal for Settings -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('settingsModal')">&times;</span>
+            <h2>Settings</h2>
+            <p>Configure your preferences for the application, including notifications and privacy settings.</p>
+        </div>
+    </div>
+
+    <!-- Modal for About Us -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+            <h2>About Us</h2>
+            <p>We are dedicated to providing the best mental health services through a compassionate and professional approach.</p>
+        </div>
+    </div>
+
+    <!-- Modal for Resources -->
+    <div id="resourcesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('resourcesModal')">&times;</span>
+            <h2>Resources</h2>
+            <p>Explore our resources for mental health support, including articles, helplines, and community support groups.</p>
+        </div>
+    </div>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const sideMenu = document.getElementById('side-menu');
+
+        menuBtn.addEventListener('click', () => {
+            sideMenu.classList.toggle('active');
+        });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

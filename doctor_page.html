@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f0f8ff; /* Light Sky Blue */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #4CAF50; /* Green */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Welcome, Doctor</h2>
+
+        <h3>Patient Information Management</h3>
+        <a href="#" class="button" onclick="openModal('viewPatientsModal')">View Patient Records</a>
+        <a href="#" class="button" onclick="openModal('editPatientModal')">Edit Patient Information</a>
+        <a href="#" class="button" onclick="openModal('addPatientModal')">Add New Patient</a>
+
+        <h3>Consultation Management</h3>
+        <a href="#" class="button" onclick="openModal('recordConsultationModal')">Record Consultation</a>
+        <a href="#" class="button" onclick="openModal('consultationHistoryModal')">View Consultation History</a>
+
+        <h3>Appointment Scheduling</h3>
+        <a href="#" class="button" onclick="openModal('manageAppointmentsModal')">Manage Appointments</a>
+        <a href="#" class="button" onclick="openModal('upcomingAppointmentsModal')">Upcoming Appointments</a>
+
+        <h3>Patient Monitoring</h3>
+        <a href="#" class="button" onclick="openModal('alertsModal')">Alerts and Notifications</a>
+        <a href="#" class="button" onclick="openModal('sectionedPatientsModal')">Track Sectioned Patients</a>
+
+        <h3>Medication Management</h3>
+        <a href="#" class="button" onclick="openModal('prescribeMedicationModal')">Prescribe Medication</a>
+        <a href="#" class="button" onclick="openModal('viewTreatmentsModal')">View Treatment Plans</a>
+
+        <h3>Reporting Features</h3>
+        <a href="#" class="button" onclick="openModal('generateReportsModal')">Generate Reports</a>
+        <a href="#" class="button" onclick="openModal('managementReportsModal')">View Management Reports</a>
+
+        <h3>Emergency Protocols</h3>
+        <a href="#" class="button" onclick="openModal('highRiskPatientsModal')">Flag High-Risk Patients</a>
+        <a href="#" class="button" onclick="openModal('crisisResourcesModal')">Access Crisis Management Resources</a>
+
+        <h3>User Management</h3>
+        <a href="#" class="button" onclick="openModal('profileManagementModal')">Profile Management</a>
+        <a href="#" class="button" onclick="openModal('accessControlModal')">User Access Control</a>
+    </div>
+
+    <a href="Mental_healthcare.html" class="back-home">Logout</a>
+
+    <!-- Modal Forms -->
+    <div id="viewPatientsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewPatientsModal')">&times;</span>
+            <h2>View Patient Records</h2>
+            <form>
+                <label for="patientId">Enter Patient ID:</label>
+                <input type="text" id="patientId" name="patientId" required>
+                <button type="submit">View Records</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editPatientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editPatientModal')">&times;</span>
+            <h2>Edit Patient Information</h2>
+            <form>
+                <label for="editPatientId">Enter Patient ID:</label>
+                <input type="text" id="editPatientId" name="editPatientId" required>
+                <label for="editInfo">Edit Information:</label>
+                <textarea id="editInfo" name="editInfo" rows="4" required></textarea>
+                <button type="submit">Update Information</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addPatientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addPatientModal')">&times;</span>
+            <h2>Add New Patient</h2>
+            <form>
+                <label for="newPatientName">Patient Name:</label>
+                <input type="text" id="newPatientName" name="newPatientName" required>
+                <label for="newPatientAge">Patient Age:</label>
+                <input type="number" id="newPatientAge" name="newPatientAge" required>
+                <button type="submit">Add Patient</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="recordConsultationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('recordConsultationModal')">&times;</span>
+            <h2>Record Consultation</h2>
+            <form>
+                <label for="consultationNotes">Consultation Notes:</label>
+                <textarea id="consultationNotes" name="consultationNotes" rows="4" required></textarea>
+                <button type="submit">Save Consultation</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="consultationHistoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('consultationHistoryModal')">&times;</span>
+            <h2>View Consultation History</h2>
+            <form>
+                <label for="historyPatientId">Enter Patient ID:</label>
+                <input type="text" id="historyPatientId" name="historyPatientId" required>
+                <button type="submit">View History</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="manageAppointmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('manageAppointmentsModal')">&times;</span>
+            <h2>Manage Appointments</h2>
+            <form>
+                <label for="appointmentId">Appointment ID:</label>
+                <input type="text" id="appointmentId" name="appointmentId" required>
+                <button type="submit">Manage Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="upcomingAppointmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('upcomingAppointmentsModal')">&times;</span>
+            <h2>Upcoming Appointments</h2>
+            <form>
+                <button type="submit">View Upcoming Appointments</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="alertsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('alertsModal')">&times;</span>
+            <h2>Alerts and Notifications</h2>
+            <form>
+                <button type="submit">View Alerts</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="sectionedPatientsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sectionedPatientsModal')">&times;</span>
+            <h2>Track Sectioned Patients</h2>
+            <form>
+                <button type="submit">View Sectioned Patients</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="prescribeMedicationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('prescribeMedicationModal')">&times;</span>
+            <h2>Prescribe Medication</h2>
+            <form>
+                <label for="medicationName">Medication Name:</label>
+                <input type="text" id="medicationName" name="medicationName" required>
+                <label for="medicationDosage">Dosage:</label>
+                <input type="text" id="medicationDosage" name="medicationDosage" required>
+                <button type="submit">Prescribe Medication</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="viewTreatmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewTreatmentsModal')">&times;</span>
+            <h2>View Treatment Plans</h2>
+            <form>
+                <label for="treatmentPatientId">Enter Patient ID:</label>
+                <input type="text" id="treatmentPatientId" name="treatmentPatientId" required>
+                <button type="submit">View Treatment Plans</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="generateReportsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('generateReportsModal')">&times;</span>
+            <h2>Generate Reports</h2>
+            <form>
+                <label for="reportType">Select Report Type:</label>
+                <select id="reportType" name="reportType" required>
+                    <option value="patient">Patient Report</option>
+                    <option value="consultation">Consultation Report</option>
+                    <option value="appointment">Appointment Report</option>
+                </select>
+                <button type="submit">Generate Report</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="managementReportsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('managementReportsModal')">&times;</span>
+            <h2>View Management Reports</h2>
+            <form>
+                <button type="submit">View Reports</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="highRiskPatientsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('highRiskPatientsModal')">&times;</span>
+            <h2>Flag High-Risk Patients</h2>
+            <form>
+                <label for="highRiskPatientId">Enter Patient ID:</label>
+                <input type="text" id="highRiskPatientId" name="highRiskPatientId" required>
+                <button type="submit">Flag Patient</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="crisisResourcesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('crisisResourcesModal')">&times;</span>
+            <h2>Access Crisis Management Resources</h2>
+            <form>
+                <button type="submit">View Crisis Resources</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="profileManagementModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('profileManagementModal')">&times;</span>
+            <h2>Profile Management</h2>
+            <form>
+                <label for="newUsername">New Username:</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="accessControlModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('accessControlModal')">&times;</span>
+            <h2>User Access Control</h2>
+            <form>
+                <label for="userId">User ID:</label>
+                <input type="text" id="userId" name="userId" required>
+                <button type="submit">Manage Access</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
